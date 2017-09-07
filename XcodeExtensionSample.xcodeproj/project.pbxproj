@@ -11,7 +11,35 @@
 		B624E6EA1F6155E00081E582 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B624E6E91F6155E00081E582 /* ViewController.swift */; };
 		B624E6EC1F6155E00081E582 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B624E6EB1F6155E00081E582 /* Assets.xcassets */; };
 		B624E6EF1F6155E00081E582 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B624E6ED1F6155E00081E582 /* Main.storyboard */; };
+		B624E6FE1F61567E0081E582 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B624E6FD1F61567E0081E582 /* Cocoa.framework */; };
+		B624E7011F61567E0081E582 /* SourceEditorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B624E7001F61567E0081E582 /* SourceEditorExtension.swift */; };
+		B624E7031F61567E0081E582 /* SourceEditorCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = B624E7021F61567E0081E582 /* SourceEditorCommand.swift */; };
+		B624E7081F61567E0081E582 /* Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = B624E6FB1F61567E0081E582 /* Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B624E7061F61567E0081E582 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B624E6DC1F6155E00081E582 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B624E6FA1F61567E0081E582;
+			remoteInfo = Extension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B624E70C1F61567E0081E582 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				B624E7081F61567E0081E582 /* Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		B624E6E41F6155E00081E582 /* XcodeExtensionSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XcodeExtensionSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -21,6 +49,12 @@
 		B624E6EE1F6155E00081E582 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B624E6F01F6155E00081E582 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B624E6F11F6155E00081E582 /* XcodeExtensionSample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = XcodeExtensionSample.entitlements; sourceTree = "<group>"; };
+		B624E6FB1F61567E0081E582 /* Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Extension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		B624E6FD1F61567E0081E582 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		B624E7001F61567E0081E582 /* SourceEditorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceEditorExtension.swift; sourceTree = "<group>"; };
+		B624E7021F61567E0081E582 /* SourceEditorCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceEditorCommand.swift; sourceTree = "<group>"; };
+		B624E7041F61567E0081E582 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B624E7051F61567E0081E582 /* Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Extension.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +65,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B624E6F81F61567E0081E582 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B624E6FE1F61567E0081E582 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -38,6 +80,8 @@
 			isa = PBXGroup;
 			children = (
 				B624E6E61F6155E00081E582 /* XcodeExtensionSample */,
+				B624E6FF1F61567E0081E582 /* Extension */,
+				B624E6FC1F61567E0081E582 /* Frameworks */,
 				B624E6E51F6155E00081E582 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -46,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				B624E6E41F6155E00081E582 /* XcodeExtensionSample.app */,
+				B624E6FB1F61567E0081E582 /* Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -63,6 +108,25 @@
 			path = XcodeExtensionSample;
 			sourceTree = "<group>";
 		};
+		B624E6FC1F61567E0081E582 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B624E6FD1F61567E0081E582 /* Cocoa.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B624E6FF1F61567E0081E582 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				B624E7001F61567E0081E582 /* SourceEditorExtension.swift */,
+				B624E7021F61567E0081E582 /* SourceEditorCommand.swift */,
+				B624E7041F61567E0081E582 /* Info.plist */,
+				B624E7051F61567E0081E582 /* Extension.entitlements */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -73,15 +137,34 @@
 				B624E6E01F6155E00081E582 /* Sources */,
 				B624E6E11F6155E00081E582 /* Frameworks */,
 				B624E6E21F6155E00081E582 /* Resources */,
+				B624E70C1F61567E0081E582 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				B624E7071F61567E0081E582 /* PBXTargetDependency */,
 			);
 			name = XcodeExtensionSample;
 			productName = XcodeExtensionSample;
 			productReference = B624E6E41F6155E00081E582 /* XcodeExtensionSample.app */;
 			productType = "com.apple.product-type.application";
+		};
+		B624E6FA1F61567E0081E582 /* Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B624E7091F61567E0081E582 /* Build configuration list for PBXNativeTarget "Extension" */;
+			buildPhases = (
+				B624E6F71F61567E0081E582 /* Sources */,
+				B624E6F81F61567E0081E582 /* Frameworks */,
+				B624E6F91F61567E0081E582 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Extension;
+			productName = Extension;
+			productReference = B624E6FB1F61567E0081E582 /* Extension.appex */;
+			productType = "com.apple.product-type.xcode-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -94,6 +177,10 @@
 				ORGANIZATIONNAME = takasek;
 				TargetAttributes = {
 					B624E6E31F6155E00081E582 = {
+						CreatedOnToolsVersion = 9.0;
+						ProvisioningStyle = Automatic;
+					};
+					B624E6FA1F61567E0081E582 = {
 						CreatedOnToolsVersion = 9.0;
 						ProvisioningStyle = Automatic;
 					};
@@ -113,6 +200,7 @@
 			projectRoot = "";
 			targets = (
 				B624E6E31F6155E00081E582 /* XcodeExtensionSample */,
+				B624E6FA1F61567E0081E582 /* Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -124,6 +212,13 @@
 			files = (
 				B624E6EC1F6155E00081E582 /* Assets.xcassets in Resources */,
 				B624E6EF1F6155E00081E582 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B624E6F91F61567E0081E582 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,7 +234,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B624E6F71F61567E0081E582 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B624E7011F61567E0081E582 /* SourceEditorExtension.swift in Sources */,
+				B624E7031F61567E0081E582 /* SourceEditorCommand.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B624E7071F61567E0081E582 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B624E6FA1F61567E0081E582 /* Extension */;
+			targetProxy = B624E7061F61567E0081E582 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		B624E6ED1F6155E00081E582 /* Main.storyboard */ = {
@@ -262,6 +374,7 @@
 		B624E6F51F6155E00081E582 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = XcodeExtensionSample/XcodeExtensionSample.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -278,6 +391,7 @@
 		B624E6F61F6155E00081E582 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = XcodeExtensionSample/XcodeExtensionSample.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -287,6 +401,38 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.takasek.XcodeExtensionSample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+		B624E70A1F61567E0081E582 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Extension/Extension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 42U7855PYX;
+				INFOPLIST_FILE = Extension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.takasek.XcodeExtensionSample.Extension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		B624E70B1F61567E0081E582 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Extension/Extension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 42U7855PYX;
+				INFOPLIST_FILE = Extension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.takasek.XcodeExtensionSample.Extension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
@@ -308,6 +454,15 @@
 			buildConfigurations = (
 				B624E6F51F6155E00081E582 /* Debug */,
 				B624E6F61F6155E00081E582 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B624E7091F61567E0081E582 /* Build configuration list for PBXNativeTarget "Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B624E70A1F61567E0081E582 /* Debug */,
+				B624E70B1F61567E0081E582 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
