@@ -19,16 +19,16 @@ class SourceEditorExtension: NSObject, XCSourceEditorExtension {
     var commandDefinitions: [[XCSourceEditorCommandDefinitionKey: Any]] {
         // If your extension needs to return a collection of command definitions that differs from those in its Info.plist, implement this optional property getter.
 
-        print("definition requested")
-
-        let bundleIdentifiler = Bundle.main.bundleIdentifier!
         return [
-            [
-                .nameKey: "commandName",
-                .classNameKey: SourceEditorCommand.className(),
-                .identifierKey: bundleIdentifiler + "." + "commandName"
-            ]
+            PasteboardOutputCommand.commandDefinition,
+            PasteboardInputCommand.commandDefinition,
+            URLSchemeCommand.commandDefinition,
+            LocalCommandCommand.commandDefinition,
+            NetworkCommand.commandDefinition,
+            ToDesktopCommand1.commandDefinition,
+            ToDesktopCommand2.commandDefinition,
+            OpenAndAlertCommand1.commandDefinition,
+            OpenAndAlertCommand2.commandDefinition,
         ]
     }
-
 }
