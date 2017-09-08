@@ -15,6 +15,9 @@
 		B624E7011F61567E0081E582 /* SourceEditorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B624E7001F61567E0081E582 /* SourceEditorExtension.swift */; };
 		B624E7031F61567E0081E582 /* SourceEditorCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = B624E7021F61567E0081E582 /* SourceEditorCommand.swift */; };
 		B624E7081F61567E0081E582 /* Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = B624E6FB1F61567E0081E582 /* Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B6D57C691F61D33D00594D6E /* SweetSourceEditorCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D57C661F61D28400594D6E /* SweetSourceEditorCommand.swift */; };
+		B6D57C6A1F61D34000594D6E /* UTI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D57C671F61D28400594D6E /* UTI.swift */; };
+		B6D57C6B1F61D34300594D6E /* XCTextBuffer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D57C681F61D28400594D6E /* XCTextBuffer+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +58,9 @@
 		B624E7021F61567E0081E582 /* SourceEditorCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceEditorCommand.swift; sourceTree = "<group>"; };
 		B624E7041F61567E0081E582 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B624E7051F61567E0081E582 /* Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Extension.entitlements; sourceTree = "<group>"; };
+		B6D57C661F61D28400594D6E /* SweetSourceEditorCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SweetSourceEditorCommand.swift; sourceTree = "<group>"; };
+		B6D57C671F61D28400594D6E /* UTI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UTI.swift; sourceTree = "<group>"; };
+		B6D57C681F61D28400594D6E /* XCTextBuffer+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTextBuffer+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,8 +129,19 @@
 				B624E7021F61567E0081E582 /* SourceEditorCommand.swift */,
 				B624E7041F61567E0081E582 /* Info.plist */,
 				B624E7051F61567E0081E582 /* Extension.entitlements */,
+				B6D57C651F61D28400594D6E /* Utilities */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		B6D57C651F61D28400594D6E /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				B6D57C661F61D28400594D6E /* SweetSourceEditorCommand.swift */,
+				B6D57C671F61D28400594D6E /* UTI.swift */,
+				B6D57C681F61D28400594D6E /* XCTextBuffer+Extension.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -239,7 +256,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				B624E7011F61567E0081E582 /* SourceEditorExtension.swift in Sources */,
+				B6D57C691F61D33D00594D6E /* SweetSourceEditorCommand.swift in Sources */,
+				B6D57C6A1F61D34000594D6E /* UTI.swift in Sources */,
 				B624E7031F61567E0081E582 /* SourceEditorCommand.swift in Sources */,
+				B6D57C6B1F61D34300594D6E /* XCTextBuffer+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
