@@ -94,10 +94,16 @@ extension XCSourceTextBuffer {
     func replaceSelection(by insertion: String) throws {
         guard let selection = selections.firstObject as? XCSourceTextRange else { throw Error.noSelection }
 
-        let pre = (lines[selection.start.line] as! NSString).substring(to: selection.start.column)
-        let post = (lines[selection.end.line] as! NSString).substring(to: selection.end.column)
+        var pre = ""
+        var post = ""
+        if selection.end.line < lines.count {
+            pre = (lines[selection.start.line] as! NSString).substring(to: selection.start.column)
+            post = (lines[selection.end.line] as! NSString).substring(to: selection.end.column)
+            lines.removeObjects(at: IndexSet(integersIn: selection.start.line...selection.end.line))
+        } else {
+            // selection.end.line may exceed lines.count at EOF
+        }
 
-        lines.removeObjects(at: IndexSet(integersIn: selection.start.line...selection.end.line))
         lines.insert(pre + insertion + post, at: selection.start.line)
     }
 }
