@@ -51,6 +51,19 @@ final class PasteboardInputCommand: SweetSourceEditorCommand {
     }
 }
 
+final class OpenAppCommand: SweetSourceEditorCommand {
+    override class var commandName: String {
+        return "カレンダーを開く"
+    }
+
+    override func performImpl(with textBuffer: XCSourceTextBuffer) throws -> Bool {
+
+        NSWorkspace.shared.launchApplication("Calendar")
+
+        return true
+    }
+}
+
 final class URLSchemeCommand: SweetSourceEditorCommand {
     override class var commandName: String {
         return "選択中の行 -> twitter://post"
@@ -140,15 +153,15 @@ final class NetworkCommand: SweetSourceEditorCommand {
     override func performImpl(with textBuffer: XCSourceTextBuffer) throws -> Bool {
         print(textBuffer.contentUTI)
 
-        let url = URL(string: "https://example.com")!
-        let semaphore = DispatchSemaphore(value: 0)
-
         enum Result {
             case success(String)
             case fail(MyError)
         }
+        let urlRequest = URLRequest(url: URL(string: "https://httpbin.org/get")!)
+
+        let semaphore = DispatchSemaphore(value: 0)
         var result: Result = .fail(.timedOut)
-        let task = URLSession.shared.dataTask(with: url) { data, _, error in
+        let task = URLSession.shared.dataTask(with: urlRequest) { data, _, error in
             if let res = data.flatMap({ String(data: $0, encoding: .utf8) }) {
                 result = .success(res)
             } else {
@@ -193,32 +206,45 @@ final class ToDesktopCommand2: SweetSourceEditorCommand {
     }
 
     override func performImpl(with textBuffer: XCSourceTextBuffer) throws -> Bool {
-        print(textBuffer.contentUTI)
 
         return true
     }
 }
 
-final class OpenAndAlertCommand1: SweetSourceEditorCommand {
+final class AppCommand: SweetSourceEditorCommand {
     override class var commandName: String {
-        return "(App by Notification) -> ファイル選択 -> Alert"
+        return "(App by URLScheme) -> ファイル選択 -> (Notification) -> カーソル位置"
     }
 
     override func performImpl(with textBuffer: XCSourceTextBuffer) throws -> Bool {
         print(textBuffer.contentUTI)
 
-        return true
-    }
-}
+        var c = URLComponents(string: "xcextsample://")!
+        c.queryItems = [
+            URLQueryItem(name: "title", value: "text")
+        ]
+        NSWorkspace.shared.open(c.url!)
 
-final class OpenAndAlertCommand2: SweetSourceEditorCommand {
-    override class var commandName: String {
-        return "(App by URLScheme) -> ファイル選択 -> Alert"
-    }
+        var result: String? = nil
+        let semaphore = DispatchSemaphore(value: 0)
+//        var tokens: [Any] = []
+//        tokens.append(DistributedNotificationCenter.default().addObserver(
+//            forName: Notification.Name("XcodeExtensionSample.fileSelectionFinished"),
+//            object: nil,
+//            queue: OperationQueue.main
+//        ) { notification in
+//            print(notification)
+//            semaphore.signal()
+//        })
+        _ = semaphore.wait(timeout: .now() + 30)
 
-    override func performImpl(with textBuffer: XCSourceTextBuffer) throws -> Bool {
-        print(textBuffer.contentUTI)
+//        tokens.forEach {
+//            DistributedNotificationCenter.default().removeObserver($0)
+//        }
 
+        if let result = result {
+            try textBuffer.replaceSelection(by: result)
+        }
         return true
     }
 }

@@ -22,13 +22,13 @@ class SourceEditorExtension: NSObject, XCSourceEditorExtension {
         return [
             PasteboardOutputCommand.commandDefinition,
             PasteboardInputCommand.commandDefinition,
+            OpenAppCommand.commandDefinition,
             URLSchemeCommand.commandDefinition,
             LocalCommandCommand.commandDefinition,
             NetworkCommand.commandDefinition,
             ToDesktopCommand1.commandDefinition,
             ToDesktopCommand2.commandDefinition,
-            OpenAndAlertCommand1.commandDefinition,
-            OpenAndAlertCommand2.commandDefinition,
+            AppCommand.commandDefinition,
         ]
     }
 }
