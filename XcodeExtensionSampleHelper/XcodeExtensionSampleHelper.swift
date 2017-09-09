@@ -8,28 +8,16 @@
 
 
 import Foundation
-import Cocoa
 
 @objc class XcodeExtensionSampleHelper: NSObject, XcodeExtensionSampleHelperProtocol {
-    func execute(in directory: String, with arguments: [String], reply: @escaping HelperResultHandler) {
+    func write(text: String, to directory: String, reply: @escaping HelperResultHandler) {
 
-//        let task = Process(), stdout = Pipe(), stderr = Pipe()
-//        task.launchPath = "/usr/bin/env"
-//        task.arguments = ["/usr/local/bin/swiftlint"] + arguments
-//        task.currentDirectoryPath = directory
-//        task.standardOutput = stdout
-//        task.standardError = stderr
-//        task.launch()
-//
-//        let output = String(data: stdout.fileHandleForReading.readDataToEndOfFile(),
-//                            encoding: .utf8) ?? ""
-//        let errorOutput = String(data: stderr.fileHandleForReading.readDataToEndOfFile(),
-//                                 encoding: .utf8) ?? ""
-//
-//        let e = NSSearchPathForDirectoriesInDomains(.desktopDirectory, .userDomainMask, true).first!
-//        try? errorOutput.write(toFile: e + "/testest", atomically: true, encoding: .utf8)
+        try? text.write(
+            toFile: directory + "/outputFile",
+            atomically: true, encoding: .utf8
+        )
 
-        reply(0, "output", "errorOutput")
+        reply(0)
     }
 }
 

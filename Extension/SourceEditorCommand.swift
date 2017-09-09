@@ -207,9 +207,11 @@ final class ToDesktopCommand2: SweetSourceEditorCommand {
 
     enum Error: MessagedError {
         case connectionFailed
+        case executionFailed
         var message: String {
             switch self {
             case .connectionFailed: return "Failed to make connection."
+            case .executionFailed: return "Execution failed."
             }
         }
     }
@@ -226,20 +228,26 @@ final class ToDesktopCommand2: SweetSourceEditorCommand {
         connection.resume()
 
         let semaphore = DispatchSemaphore(value: 0)
-        var (status, output, errorOutput) = (0, "", "")
+        var isSuccess = false
 
         connection.invalidationHandler = {
             print("invalid!")
             semaphore.signal()
         }
-        helper.execute(in: NSTemporaryDirectory(), with: []) {
-            (status, output, errorOutput) = ($0, $1, $2)
-            print(errorOutput)
+
+        let dir = NSSearchPathForDirectoriesInDomains(
+            .desktopDirectory, .userDomainMask, true
+            ).first!
+
+        helper.write(text: textBuffer.completeBuffer, to: dir) { _ in
+            isSuccess = true
             semaphore.signal()
         }
         _ = semaphore.wait(timeout: .now() + 10)
 
-        print(status, output, errorOutput)
+        if !isSuccess {
+            throw Error.executionFailed
+        }
 
         return true
     }

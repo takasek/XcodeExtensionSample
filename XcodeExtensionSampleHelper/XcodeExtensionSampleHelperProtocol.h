@@ -8,14 +8,14 @@
 
 @import Foundation;
 
-typedef void (^HelperResultHandler)(NSInteger status, NSString * _Nonnull, NSString * _Nonnull);
+typedef void (^HelperResultHandler)(NSInteger status);
 
 @protocol XcodeExtensionSampleHelperProtocol
 
-- (void)executeInDirectory:(NSString * _Nonnull)directory
-             withArguments:(NSArray<NSString *> * _Nonnull)arguments
-                     reply:(HelperResultHandler _Nonnull)reply
-NS_SWIFT_NAME(execute(in:with:reply:));
+- (void)writeText:(NSString * _Nonnull)text
+               to:(NSString * _Nonnull)directory
+            reply:(HelperResultHandler _Nonnull)reply
+NS_SWIFT_NAME(write(text:to:reply:));
 
 @end
 
