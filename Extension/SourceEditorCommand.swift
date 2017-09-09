@@ -205,7 +205,41 @@ final class ToDesktopCommand2: SweetSourceEditorCommand {
         return "全体 -> (XPC) -> デスクトップ"
     }
 
+    enum Error: MessagedError {
+        case connectionFailed
+        var message: String {
+            switch self {
+            case .connectionFailed: return "Failed to make connection."
+            }
+        }
+    }
+
     override func performImpl(with textBuffer: XCSourceTextBuffer) throws -> Bool {
+        let connection = NSXPCConnection(serviceName: "io.github.takasek.XcodeExtensionSampleHelper")
+        connection.remoteObjectInterface = NSXPCInterface(with: XcodeExtensionSampleHelperProtocol.self)
+        defer {
+            connection.invalidate()
+        }
+        guard let helper = connection.remoteObjectProxy as? XcodeExtensionSampleHelperProtocol else {
+            throw Error.connectionFailed
+        }
+        connection.resume()
+
+        let semaphore = DispatchSemaphore(value: 0)
+        var (status, output, errorOutput) = (0, "", "")
+
+        connection.invalidationHandler = {
+            print("invalid!")
+            semaphore.signal()
+        }
+        helper.execute(in: NSTemporaryDirectory(), with: []) {
+            (status, output, errorOutput) = ($0, $1, $2)
+            print(errorOutput)
+            semaphore.signal()
+        }
+        _ = semaphore.wait(timeout: .now() + 10)
+
+        print(status, output, errorOutput)
 
         return true
     }

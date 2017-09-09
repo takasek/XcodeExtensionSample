@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "XcodeExtensionSampleHelper.h"
+#import "XcodeExtensionSampleHelper-Swift.h"
 
 @interface ServiceDelegate : NSObject <NSXPCListenerDelegate>
 @end
