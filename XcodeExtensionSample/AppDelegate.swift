@@ -17,25 +17,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             forEventClass: AEEventClass(kInternetEventClass),
             andEventID: AEEventID(kAEGetURL)
         )
-
-        print(UserDefaults(suiteName: "Hogehoge")?.integer(forKey: "date"))
-        UserDefaults(suiteName: "Hogehoge")?.set(Date().timeIntervalSince1970, forKey: "date")
     }
 
     private var selectedFileURL: URL?
 
     @objc func handleGetURLEvent(event: NSAppleEventDescriptor?, replyEvent: NSAppleEventDescriptor?) {
         defer {
-            DistributedNotificationCenter.default().postNotificationName(
-                Notification.Name("XcodeExtensionSample.fileSelectionFinished"),
-                object: nil,
-                userInfo: selectedFileURL.flatMap { ["url": $0] },
-                deliverImmediately: true
-            )
-            DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+            UserDefaults(suiteName: "42U7855PYX.io.github.takasek.XcodeExtensionSample")?.set(selectedFileURL?.absoluteString, forKey: "valueFromApp")
+
+            DispatchQueue.main.async {
                 NSApplication.shared.terminate(nil)
             }
-            
         }
         guard
             let urlString = event?.paramDescriptor(forKeyword: keyDirectObject)?.stringValue,
@@ -55,7 +47,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     private func selectFile(with title: String) -> URL? {
-        var url: URL?
         let panel = NSOpenPanel()
 
         panel.prompt = "Select"
@@ -64,8 +55,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         panel.canChooseFiles = true
         panel.title = "title"
 
-        let response = panel.runModal()
-        switch response {
+        let url: URL?
+        switch panel.runModal() {
         case .OK:
             url = panel.url
         case _:
@@ -75,7 +66,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
+        DistributedNotificationCenter.default().postNotificationName(
+            Notification.Name("XcodeExtensionSample.applicationWillTerminate"),
+            object: nil,
+            userInfo: selectedFileURL.flatMap { ["url": $0] },
+            deliverImmediately: true
+        )
     }
 
     func application(_ application: NSApplication, open urls: [URL]) {

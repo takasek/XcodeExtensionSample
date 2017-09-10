@@ -253,40 +253,76 @@ final class ToDesktopCommand2: SweetSourceEditorCommand {
     }
 }
 
-final class AppCommand: SweetSourceEditorCommand {
+extension UserDefaults {
+    @objc dynamic var valueFromApp: String? {
+        return string(forKey: "valueFromApp")
+    }
+}
+
+final class FileSelectionCommand: SweetSourceEditorCommand {
     override class var commandName: String {
         return "(App by URLScheme) -> ファイル選択 -> (Notification) -> カーソル位置"
     }
 
-    override func performImpl(with textBuffer: XCSourceTextBuffer) throws -> Bool {
-        print(textBuffer.contentUTI)
+    private var _applicationWillTerminate: (() -> Void)?
+    @objc private func applicationWillTerminate(notification: Notification) {
+        _applicationWillTerminate?()
+    }
 
+    enum Error: MessagedError {
+        case noFileSelected
+        var message: String {
+            switch self {
+            case .noFileSelected: return "No file selected."
+            }
+        }
+    }
+
+    override func performImpl(with textBuffer: XCSourceTextBuffer) throws -> Bool {
+        let semaphore = DispatchSemaphore(value: 0)
+
+        var selectedResult: String?
+
+        // The command expects that the app set selected file path to UserDefaults.
+        let userDefaults = UserDefaults(suiteName: "42U7855PYX.io.github.takasek.XcodeExtensionSample")!
+        userDefaults.synchronize()
+        let observation = userDefaults.observe(\UserDefaults.valueFromApp, options:[.old, .new]) { ud, change in
+            selectedResult = change.newValue?.flatMap { $0 }
+            semaphore.signal()
+        }
+
+        // this observation also works.
+        DistributedNotificationCenter.default().addObserver(
+            self,
+            selector: #selector(FileSelectionCommand.applicationWillTerminate(notification:)),
+            name: Notification.Name("XcodeExtensionSample.applicationWillTerminate"),
+            object: nil,
+            suspensionBehavior: .deliverImmediately
+        )
+        _applicationWillTerminate = {
+            // If the app terminated by user unexpectedly, this observation signals the semaphore.
+            semaphore.signal()
+        }
+
+        // Open App via URL Scheme
         var c = URLComponents(string: "xcextsample://")!
         c.queryItems = [
             URLQueryItem(name: "title", value: "text")
         ]
         NSWorkspace.shared.open(c.url!)
 
-        var result: String? = nil
-        let semaphore = DispatchSemaphore(value: 0)
-//        var tokens: [Any] = []
-//        tokens.append(DistributedNotificationCenter.default().addObserver(
-//            forName: Notification.Name("XcodeExtensionSample.fileSelectionFinished"),
-//            object: nil,
-//            queue: OperationQueue.main
-//        ) { notification in
-//            print(notification)
-//            semaphore.signal()
-//        })
-        _ = semaphore.wait(timeout: .now() + 30)
+        _ = semaphore.wait()
 
-//        tokens.forEach {
-//            DistributedNotificationCenter.default().removeObserver($0)
-//        }
+        DistributedNotificationCenter.default().removeObserver(self)
+        observation.invalidate()
 
-        if let result = result {
-            try textBuffer.replaceSelection(by: result)
+        guard let result = selectedResult else {
+            // cancel the command.
+            throw Error.noFileSelected
         }
+
+        try textBuffer.replaceSelection(by: result)
+
         return true
     }
 }

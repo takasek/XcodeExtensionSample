@@ -28,7 +28,7 @@ class SourceEditorExtension: NSObject, XCSourceEditorExtension {
             NetworkCommand.commandDefinition,
             ToDesktopCommand1.commandDefinition,
             ToDesktopCommand2.commandDefinition,
-            AppCommand.commandDefinition,
+            FileSelectionCommand.commandDefinition,
         ]
     }
 }
