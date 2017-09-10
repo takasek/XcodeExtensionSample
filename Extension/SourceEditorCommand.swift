@@ -12,7 +12,7 @@ import Cocoa
 
 final class PasteboardOutputCommand: SweetSourceEditorCommand {
     override class var commandName: String {
-        return "ファイルのUTI -> PasteBoard"
+        return "file UTI -> PasteBoard"
     }
 
     override func performImpl(with textBuffer: XCSourceTextBuffer) throws -> Bool {
@@ -26,7 +26,7 @@ final class PasteboardOutputCommand: SweetSourceEditorCommand {
 
 final class PasteboardInputCommand: SweetSourceEditorCommand {
     override class var commandName: String {
-        return "PasteBoard -> カーソル位置"
+        return "PasteBoard -> cursor place"
     }
 
     enum Error: MessagedError {
@@ -53,7 +53,7 @@ final class PasteboardInputCommand: SweetSourceEditorCommand {
 
 final class OpenAppCommand: SweetSourceEditorCommand {
     override class var commandName: String {
-        return "カレンダーを開く"
+        return "open Calendar"
     }
 
     override func performImpl(with textBuffer: XCSourceTextBuffer) throws -> Bool {
@@ -66,7 +66,7 @@ final class OpenAppCommand: SweetSourceEditorCommand {
 
 final class URLSchemeCommand: SweetSourceEditorCommand {
     override class var commandName: String {
-        return "選択中の行 -> twitter://post"
+        return "selected text -> twitter://post"
     }
 
     override func performImpl(with textBuffer: XCSourceTextBuffer) throws -> Bool {
@@ -84,7 +84,7 @@ final class URLSchemeCommand: SweetSourceEditorCommand {
 
 final class LocalCommandCommand: SweetSourceEditorCommand {
     override class var commandName: String {
-        return "全体 -> trで uppercased -> 全体"
+        return "completeBuffer -> uppercased by tr -> completeBuffer"
     }
 
     enum Error: MessagedError {
@@ -137,7 +137,7 @@ final class LocalCommandCommand: SweetSourceEditorCommand {
 
 final class NetworkCommand: SweetSourceEditorCommand {
     override class var commandName: String {
-        return "GET example.com -> カーソル位置"
+        return "URLRequest -> cursor place"
     }
 
     enum MyError: MessagedError {
@@ -183,9 +183,10 @@ final class NetworkCommand: SweetSourceEditorCommand {
 
 final class ToDesktopCommand1: SweetSourceEditorCommand {
     override class var commandName: String {
-        return "全体 -> デスクトップに書き出し(失敗する)"
+        return "completeBuffer -> desktop (permission denied)"
     }
 
+    // this command doesn't work because of permission. You should pass through XPC.
     override func performImpl(with textBuffer: XCSourceTextBuffer) throws -> Bool {
         let dir = NSSearchPathForDirectoriesInDomains(
             .desktopDirectory, .userDomainMask, true
@@ -202,7 +203,7 @@ final class ToDesktopCommand1: SweetSourceEditorCommand {
 
 final class ToDesktopCommand2: SweetSourceEditorCommand {
     override class var commandName: String {
-        return "全体 -> (XPC) -> デスクトップ"
+        return "completeBuffer -> (XPC) -> desktop"
     }
 
     enum Error: MessagedError {
@@ -239,6 +240,8 @@ final class ToDesktopCommand2: SweetSourceEditorCommand {
             .desktopDirectory, .userDomainMask, true
             ).first!
 
+        // this XPC connection doesn't work. I don't know why...
+        // see fine example at https://github.com/norio-nomura/SwiftLintForXcode
         helper.write(text: textBuffer.completeBuffer, to: dir) { _ in
             isSuccess = true
             semaphore.signal()
@@ -261,7 +264,7 @@ extension UserDefaults {
 
 final class FileSelectionCommand: SweetSourceEditorCommand {
     override class var commandName: String {
-        return "(App by URLScheme) -> ファイル選択 -> (Notification) -> カーソル位置"
+        return "(App by URLScheme) -> select a file -> (UserDefaults) -> cursor place"
     }
 
     private var _applicationWillTerminate: (() -> Void)?
