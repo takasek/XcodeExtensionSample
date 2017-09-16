@@ -80,7 +80,7 @@ extension XCSourceTextBuffer {
         let lastLine = lines[lineNum-1] as! NSString
         let prefix = String.init(repeating: " ", count: lastLine.indentLength)
 
-        let fixedInsertion = insertion.split(separator: "\n").map {
+        let fixedInsertion = insertion.components(separatedBy: "\n").map {
             if $0.isEmpty {
                 return String($0)
             } else {
