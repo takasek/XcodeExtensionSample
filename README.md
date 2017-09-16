@@ -10,8 +10,8 @@ https://speakerdeck.com/takasek/20170916-number-iosdc
 
 - Pasteboard as input
 - Pasteboard as output
-- Anther App as output
-- Anther App as output using URL scheme
+- Another App as output
+- Another App as output using URL scheme
 - Linux command execution
 - Network connection
 - Linux command execution beyond Sandbox using XPC
